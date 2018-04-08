@@ -50,7 +50,8 @@ answer, answer2, answer3, answer4 = None,None,None,None
 
 answer = input('Would you like to take images (y or n)? [default = n]: ')
 answer = answer or 'n'
-
+answer4 = input('Would you like me to show images? (y/n): ')
+    answer4 = answer4 or 'n'
 if answer.strip() == ('y'):
     print('Ok take pictures set to: ',answer)
     answer2 = input('I will save pictures every ?? frames: ')
@@ -362,7 +363,7 @@ with detection_graph.as_default():
                               use_normalized_coordinates=True,
                               line_thickness=8)
                               if answer4 == 'y':
-                                  cv2.imshow('object_detection',image_np) #, cv2.resize(image_np, (800,600))
+                        cv2.imshow('object_detection',image_np) #, cv2.resize(image_np, (800,600))
                       
                               
                               cv2.imwrite('/home/nvidia/Desktop/gameimages/img' + str(sendCount) + '.png',image_np)
