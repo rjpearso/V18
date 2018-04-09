@@ -348,21 +348,21 @@ with detection_graph.as_default():
 ##
           time3 = time.time()
           try:
-              if answer == 'y':
-                  if sendCount%int(answer2) ==0:
-                      
-                          vis_util.visualize_boxes_and_labels_on_image_array(
-                              image_np,
-                          np.squeeze(boxes),
-                          np.squeeze(classes).astype(np.int32),
-                          np.squeeze(scores),
-                          category_index,
-                          use_normalized_coordinates=True,
-                          line_thickness=8)
-                          cv2.imwrite('/home/nvidia/Desktop/gameimages/img' + str(sendCount) + '.png',image_np)
-                          print('/home/nvidia/Desktop/gameimages/img' + str(sendCount) + '.png')
-              if answer4 == 'y':
-                  cv2.imshow('object_detection',image_np) #, cv2.resize(image_np, (800,600))
+              if answer == 'y' or answer4 == 'y':
+                if sendCount%int(answer2) ==0:
+                  vis_util.visualize_boxes_and_labels_on_image_array(
+                      image_np,
+                  np.squeeze(boxes),
+                  np.squeeze(classes).astype(np.int32),
+                  np.squeeze(scores),
+                  category_index,
+                  use_normalized_coordinates=True,
+                  line_thickness=8)
+                  if answer == 'y':
+                    cv2.imwrite('/home/nvidia/Desktop/gameimages/img' + str(sendCount) + '.png',image_np)
+                    print('/home/nvidia/Desktop/gameimages/img' + str(sendCount) + '.png')
+                  if answer4 == 'y':
+                    cv2.imshow('object_detection',image_np) #, cv2.resize(image_np, (800,600))
       
               
              
