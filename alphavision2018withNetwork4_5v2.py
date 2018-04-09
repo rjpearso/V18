@@ -48,17 +48,15 @@ from operator import itemgetter
 
 answer, answer2, answer3, answer4 = None,None,None,None
 
-answer = input('Would you like to take images (y or n)? [default = n]: ')
+answer = input('Would you like to save images (y or n)? [default = n]: ')
 answer = answer or 'n'
-
-if answer.strip() == ('y'):
+answer4 = input('Would you like me to show images? (y/n) [default = n]: ')
+answer4 = answer4 or 'n'
+if answer.strip() == ('y') or answer4.strip() == 'y':
     print('Ok take pictures set to: ',answer)
-    answer2 = input('I will save pictures every ?? frames: ')
-    answer2 = answer2 or '20'
-    answer3 = input('Take frames only with cubes in them?(y/n): ')
-    answer3 = answer3 or 'y'
-    answer4 = input('Would you like me to show images? (y/n): ')
-    answer4 = answer4 or 'n'
+    answer2 = input('I will save pictures every ?? frames [default 40]: ')
+    answer2 = answer2 or '40'
+
 #print(answer,answer2)
 
 #tom = 0
@@ -349,46 +347,28 @@ with detection_graph.as_default():
               
 ##
           time3 = time.time()
-          if answer.lower() == 'y':
-              if answer3 == 'y' and cube_detect == True:
-                      if sendCount%int(answer2) ==0:
-                          try:
-                              vis_util.visualize_boxes_and_labels_on_image_array(
-                                  image_np,
-                              np.squeeze(boxes),
-                              np.squeeze(classes).astype(np.int32),
-                              np.squeeze(scores),
-                              category_index,
-                              use_normalized_coordinates=True,
-                              line_thickness=8)
-                              if answer4 == 'y':
-                                  cv2.imshow('object_detection',image_np) #, cv2.resize(image_np, (800,600))
+          try:
+              if answer == 'y':
+                  if sendCount%int(answer2) ==0:
                       
-                              
-                              cv2.imwrite('/home/nvidia/Desktop/gameimages/img' + str(sendCount) + '.png',image_np)
-                              print('/home/nvidia/Desktop/gameimages/img' + str(sendCount) + '.png')
-                          except:
-                              pass
-              else:
-                if sendCount%int(answer2) ==0:
-                  try:
-                      vis_util.visualize_boxes_and_labels_on_image_array(
-                          image_np,
-                      np.squeeze(boxes),
-                      np.squeeze(classes).astype(np.int32),
-                      np.squeeze(scores),
-                      category_index,
-                      use_normalized_coordinates=True,
-                      line_thickness=8)
-                      if answer4 == 'y':
-                          cv2.imshow('object_detection',image_np) #, cv2.resize(image_np, (800,600))
-                      
-                      cv2.imwrite('/home/nvidia/Desktop/gameimages/img' + str(sendCount) + '.png',image_np)
-                      print('/home/nvidia/Desktop/gameimages/img' + str(sendCount) + '.png')
-                  except:
-                      pass
-
-                          
+                          vis_util.visualize_boxes_and_labels_on_image_array(
+                              image_np,
+                          np.squeeze(boxes),
+                          np.squeeze(classes).astype(np.int32),
+                          np.squeeze(scores),
+                          category_index,
+                          use_normalized_coordinates=True,
+                          line_thickness=8)
+                          cv2.imwrite('/home/nvidia/Desktop/gameimages/img' + str(sendCount) + '.png',image_np)
+                          print('/home/nvidia/Desktop/gameimages/img' + str(sendCount) + '.png')
+              if answer4 == 'y':
+                  cv2.imshow('object_detection',image_np) #, cv2.resize(image_np, (800,600))
+      
+              
+             
+          except:
+              pass
+             
           finish = time.time()
           dcap = tcapFin - tcapStart
           dcaptot = dcaptot + dcap
